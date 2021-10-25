@@ -3,10 +3,10 @@
 These exercises are based on the following hostnames and IP addresses. Please adjust them to your specific hardware setup. It is assumed that the IP addresses are fixed e.g. using a router with static DHCP.
 | Hostname                                | IP Address    |
 | --------------------------------------- | ------------- |
-| cluster1raspberry0 (**master**/manager) | 192.168.2.250 |
-| cluster1raspberry1 (**slave**/worker)   | 192.168.2.251 |
-| cluster1raspberry2 (**slave**/worker)   | 192.168.2.252 |
-| cluster1raspberry3 (**slave**/worker)   | 192.168.2.253 |
+| cluster1raspberrypi0 (**master**/manager) | 10.42.0.250 |
+| cluster1raspberrypi1 (**slave**/worker)   | 10.42.0.251 |
+| cluster1raspberrypi2 (**slave**/worker)   | 10.42.0.252 |
+| cluster1raspberrypi3 (**slave**/worker)   | 10.42.0.253 |
 
 
 
@@ -45,6 +45,44 @@ ansible-playbook docker.yaml -i inventory.ini
 ansible-playbook swarm.yaml -i inventory.ini
 ```
 
+Here is a commandline for turning your cluster down:
+
+```bash
+ansible all -m shell -a "shutdown" --become -i inventory.ini
+```
+
+This takes a few seconds; it gives the nodes a chance to shut down
+running services and finish writing to the filesystem. After issuing this
+command, wait until all the LEDs have stopped blinking before you
+unplug the cluster. The red LEDs on the Pis will continue to glow until you
+disconnect the power supply, but the important thing is for the SSD activity LEDs
+to stop flickering.
+
+## Basic stresstest
+
+The `utilities.yaml` file installs a utility called `stress` that you can
+use to perform a simple stress test. It can stress your cpu (by running sqrt
+repeatedly), your hard drive / ssd or your memory (by allocating memory repeatedly).
+
+```bash
+ansible all -m shell -a "stress -t 20 -c 4" -i inventory.ini
+```
+
+This runs `sqrt` on all four CPUs of each Pi in your cluster for 20 seconds.
+Use `man stress` to find more options. I don't recommend using the `io` stress
+test excessively (SSDs do wear out eventually).
+
+You can run `vcgencmd measure_temp` and `vcgencmd measure_volts` on the Pis
+both before starting the test and while it is running to get temperature and
+power (well, voltage) readings. When I tested this, the temperature never went
+above 52.5 Celsius and the voltage reading was always at 0.87 Volts. The Pi will
+throttle its CPU above a certain temperature (I believe it's 80 Celsius).
+
+If you have a power meter handy, you can measure the cluster's power consumption.
+I have a wall outlet power meter. Some people prefer using a USB voltmeter/ammeter for better accuracy. My meter shows the cluster using 18W while it's idle and
+it goes up to about 29W when under load (either using the stresstest or running the
+more demanding cells of the jupyter notebooks below).
+
 
 
 ## Service Deployment (Visualizer, Spark, JupyterLab)
@@ -67,11 +105,8 @@ docker service rm viz
 
 Now you can deploy **Spark** with the commands below (detailed instructions [here](https://github.com/pgigeruzh/spark) if needed). Adjust the parameters (e.g. --replicas 4) to your needs. The Spark UI can be accessed on port 8080 (visit 192.168.2.250:8080).
 
-```bash
-# create an attachable overlay network
-# (all spark containers have to be within the same network to be able to connect)
-docker network create -d overlay --attachable spark
-```
+All spark containers have to be within the same network. The ansible scripts
+above create an overlay network called `spark` for this purpose.
 
 ```bash
 # run spark master
@@ -97,9 +132,9 @@ In summary, you should have the following services up and running.
 
 | Service    | URL                |
 | ---------- | ------------------ |
-| Visualizer | 192.168.2.250:80   |
-| Spark UI   | 192.168.2.250:8080 |
-| JupyterLab | 192.168.2.250:8888 |
+| Visualizer | 10.42.0.250:80   |
+| Spark UI   | 10.42.0.250:8080 |
+| JupyterLab | 10.42.0.250:8888 |
 
 For managing your cluster, the following commands might be useful:
 

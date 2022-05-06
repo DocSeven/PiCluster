@@ -117,3 +117,24 @@ operating system:
 sudo apt update
 sudo apt full-upgrade
 ```
+
+Some issue we ran into when updating the RPis were the following:
+
+* The RPis could not connect to a nameserver, even though the "dhcpcd.conf"
+  file was correctly configured. This may be a problem with the firewall, as a
+  workaround on our machine, we switched off the firewall and restarted the
+  ethernet connection sharing the wifi.
+
+* The update process terminates with an error. Try restarting the full-upgrade
+  with the parameter --fix-missing:
+  ```bash
+  sudo apt full-upgrade --fixmissing
+  ```
+  If this does not work, restart the whole update process (again using
+  --fix-missing if you run into errors):
+  ```bash
+  sudo apt clean
+  sudo apt update
+  sudo apt full-upgrade 
+  ```
+  

@@ -1,14 +1,16 @@
-# Master Project Raspberry Pi Cluster
+# A Raspberry Pi Cluster for Teaching/Experimentation
+
 This repo contains the following:
 
 | Directory  | Description                                                                                                                                   |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ansible    | Ansible scripts to automate the setup and installation process of the Raspberry Pi's. You only need Ansible and a SSH connection to all Pi's. |
-| Benchmarks | A description of the benchmarks used to test the Spark cluster. Furthermore, the experimental data and the analysis can also be found here.   |
-| Doc        | Documentation of the project                                                                                                                  |
-| Exercises     | Python (PySpark) exercises for the Big Data Analytics lecture.                                                                               |
+| RPiSetup   | Doing the basic set-up of the Raspberry Pi devices from scratch. |
+| Ansible    | Ansible scripts to automate the setup of the cluster. You only need Ansible and a SSH connection to all Pi's. |
+| Exercises  | Python (PySpark) exercises for a lecture/module.|
+| Doc        | Some additional documentation for setting up other frameworks on the cluster.|                                                                           
+| Benchmarks | A description of benchmarks used to test the cluster. Some experimental data and analysis can also be found here.   |
 
-# Quickstart
 
-For instructions on how to setup your cluster: see [Exercises](https://github.com/pgigeruzh/PiCluster/tree/master/Exercises).
+
+
 

@@ -119,7 +119,7 @@ this.
 | rpi3       | 10.42.0.253 |
 
 
-## Updating Operating System
+## Updating the Operating System
 
 After rebooting the RPis, connect to each of them via ssh again and update the
 operating system:

@@ -11,7 +11,7 @@ This repo contains the following:
 | Benchmarks | A description of benchmarks used to test the cluster. Some experimental data and analysis can also be found here.   |
 
 
-The order of the directories in the table above reflect the order which you
+The order of the directories in the table above reflects the order which you
 have to follow to set up the cluster, i.e., start with "RPiSetup", then go on
 to "Ansible", and take your cluster for a first spin with "Exercises". The
 final two directories contain some additional material.

@@ -24,11 +24,11 @@ IP-addresses. Please adjust them to your specific hardware setup.
 
 In this exercise, you will use PySpark and the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/) on movie ratings to answer several questions. These exercises promote "Learning by Doing" which means that we guide you through the steps but you have to do them yourself. Sometimes, this means that you have to use Google, Stackoverflow, or the [PySpark Documentation](https://spark.apache.org/docs/latest/api/python/pyspark.html).
 
-First, **visit JupyterLab** (192.168.2.250:8888) and upload the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/) into **/gfs** (default view in the file explorer). Alternatively, run the following commands in the JupyterLab terminal:
+First, **visit JupyterLab** (10.42.0.250:8888) and upload the [MovieLens 20M Dataset](https://grouplens.org/datasets/movielens/20m/) into **/glusterfs/distributed** (default view in the file explorer). Alternatively, run the following commands in the JupyterLab terminal:
 
 ```bash
 # change directory
-cd /gfs
+cd /glusterfs/distributed
 # install wget
 apt install wget -y
 # download and unzip MovieLens dataset
@@ -36,7 +36,7 @@ wget http://files.grouplens.org/datasets/movielens/ml-20m.zip
 unzip ml-20m.zip
 ```
 
-Now, run [this](https://github.com/pgigeruzh/PiCluster/blob/master/Exercises/Movielens_exercises.ipynb) Jupyter Notebook and follow the instructions. 
+Now, run [this](https://github.com/DocSeven/PiCluster/blob/master/Exercises/Movielens_exercises.ipynb) Jupyter Notebook and follow the instructions. 
 
 
 

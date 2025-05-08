@@ -59,8 +59,8 @@ shutting down the RPis:
 ansible all -m ping -i inventory.ini
 
 # or run some shell commands
-ansible all -m shell -a "hostname"
-ansible all -m shell -a "df -h"
+ansible all -m shell -a "hostname" -i inventory.ini
+ansible all -m shell -a "df -h" -i inventory.ini
 
 # or reboot
 ansible all -m reboot --become -i inventory.ini
